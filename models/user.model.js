@@ -6,7 +6,7 @@ const User = function(user) {
   this.email = user.email;
   this.password = bcrypt.hashSync(user.password, 10);
 };
-//koi u tabeli user provjeava jel postoji email,ako je greska  odma resoult poziva,a ako nije
+
 User.login = (user, result) => {
    sql.query(`SELECT * FROM users WHERE email = '${user.email}'`, (err, res) => {
       if (err) {
@@ -16,11 +16,8 @@ User.login = (user, result) => {
       }
       if (res.length) {
         //console.log("found user: ", res[0]);
-        if (bcrypt.compareSync(user.password, res[0].password)) { // koristi bcript i
-          // comparuje pass koji smo proslijedili kroz formu
-          //i pass iz baze uz taj email ,ako ta fukcija vrati true znaci da je ispravana pass
-          //i on poziva call back funkciju prci paramatar null i zausavlja izvrsavanje,u slucaju da se ne
-          //podudaraju izbacuje error 
+        if (bcrypt.compareSync(user.password, res[0].password)) { 
+         
           //console.log("password match!");
           result(null, { email: res[0].email });
           return;
