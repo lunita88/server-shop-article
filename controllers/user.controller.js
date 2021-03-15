@@ -1,7 +1,7 @@
 const User = require("../models/user.model.js"),
       jwt = require('jsonwebtoken')
 
-//provjera tokena midlewear
+
 exports.authenticateToken = (req, res, next) => {
   // Gather the jwt access token from the request header
   const authHeader = req.headers['authorization'];
@@ -33,10 +33,10 @@ exports.login = (req, res) => {
      });
      return;
    }
-  //prosljedjuje se user objekat gdje se nalazi email i password na model
+  
   let user = req.body;
   console.log(user);
-//ako je greska ako je greska ako je definisana greska na massage ce naljepiti msg i ispisati gresku
+      
   User.login(user, (err, data) => {
     if (err) {
       res.status(401).json({
